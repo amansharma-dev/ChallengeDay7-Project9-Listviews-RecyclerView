@@ -12,6 +12,9 @@ import com.example.challengeday7_project9_listviews_recyclerview.R;
 import com.example.challengeday7_project9_listviews_recyclerview.model.Contact;
 import com.example.challengeday7_project9_listviews_recyclerview.util.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     public DatabaseHandler(Context context) {
@@ -58,7 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    //2. a) READ--Get Single Item
+    //2. a) READ--GET Single Item
     public Contact getContact(int id){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
@@ -79,7 +82,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return contact;
     }
 
+    //2. b) READ-- GET All Items
 
+    public List<Contact> getAllContacts(){
+
+        List<Contact> contactList = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        String SELECT_ALL = "SELECT * FROM "+Utils.DATABASE_TABLE_NAME;
+
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_ALL,null);
+
+        //loop through our data
+
+        if (cursor.moveToFirst()){
+
+            do {
+                Contact contact = new Contact();
+                contact.setId(Integer.parseInt(cursor.getString(0)));
+                contact.setUserName(cursor.getString(1));
+                contact.setUserContactNumber(cursor.getString(2));
+
+                //add item to our list
+                contactList.add(contact);
+            }while(cursor.moveToNext());
+        }
+
+        return contactList;
+    }
 
 }
 
