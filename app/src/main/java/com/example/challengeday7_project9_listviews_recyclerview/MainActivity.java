@@ -28,9 +28,23 @@ public class MainActivity extends AppCompatActivity {
 //        databaseHandler.addContact(new Contact("Dave","005"));
 
 
-        //get single contact
-        Contact singleContact = databaseHandler.getContact(4);
-        Log.d(TAG, "onCreate: Single Contact Details:: "+singleContact.getId()+", NAME:: "+singleContact.getUserName()+", CONTACT NUMBER:: "+singleContact.getUserContactNumber());
+        //get contact
+//        Contact singleContact = databaseHandler.getContact(5);
+        //Log.d(TAG, "onCreate: Single Contact Details:: "+singleContact.getId()+", NAME:: "+singleContact.getUserName()+", CONTACT NUMBER:: "+singleContact.getUserContactNumber());
+
+        //update contact
+//        singleContact.setUserName("Will Smith");
+//        singleContact.setUserContactNumber("400");
+//        int updatedContact = databaseHandler.update(singleContact);
+//        Log.d(TAG, "onCreate: UPDATE ROW:: "+updatedContact);
+
+        //delete contact;
+//        databaseHandler.deleteContact(singleContact);
+
+
+        //count items in database
+
+        Log.d(TAG, "onCreate: TOTAL ITEMS IN DB:: "+databaseHandler.getCount());
 
         //get all contact
         List<Contact> contactList = databaseHandler.getAllContacts();

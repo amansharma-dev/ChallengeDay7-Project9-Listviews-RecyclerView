@@ -23,8 +23,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //create table
 
+        //create table
         String CREATE_CONTACT_TABLE = "CREATE TABLE "+ Utils.DATABASE_TABLE_NAME + "("
                 +Utils.KEY_USER_ID + " INTEGER PRIMARY KEY,"
                 +Utils.KEY_USER_NAME + " TEXT,"
@@ -82,7 +82,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //2. b) READ-- GET All Items
-
     public List<Contact> getAllContacts(){
 
         List<Contact> contactList = new ArrayList<>();
@@ -110,6 +109,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return contactList;
     }
 
+    //3. UPDATE
+    public int update(Contact contact){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Utils.KEY_USER_NAME,contact.getUserName());
+        contentValues.put(Utils.KEY_USER_CONTACT_NUMBER,contact.getUserContactNumber());
+
+        //update row
+        return sqLiteDatabase.update(Utils.DATABASE_TABLE_NAME,contentValues,Utils.KEY_USER_ID+"=?",new String[]{String.valueOf(contact.getId())});
+    }
+
+    //4. DELETE-- single item
+    public void deleteContact(Contact contact){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        sqLiteDatabase.delete(Utils.DATABASE_TABLE_NAME,Utils.KEY_USER_ID+"=?", new String[]{String.valueOf(contact.getId())});
+
+        // close db
+        sqLiteDatabase.close();
+    }
+
+    //5. COUNT
+
+    public int getCount(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String COUNT_QUERY = "SELECT * FROM "+Utils.DATABASE_TABLE_NAME;
+
+        Cursor cursor = sqLiteDatabase.rawQuery(COUNT_QUERY,null);
+
+        return cursor.getCount();
+    }
 }
 
 
