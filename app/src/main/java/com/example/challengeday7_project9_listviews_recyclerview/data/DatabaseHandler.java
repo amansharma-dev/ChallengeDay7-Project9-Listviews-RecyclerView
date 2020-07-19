@@ -2,6 +2,7 @@ package com.example.challengeday7_project9_listviews_recyclerview.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -41,7 +42,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Now, CRUD - CREATE, READ, UPDATE, DELETE
 
     //1. CREATE--ADD
-
     public void addContact(Contact contact){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -57,6 +57,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //close db
         sqLiteDatabase.close();
     }
+
+    //2. a) READ--Get Single Item
+    public Contact getContact(int id){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.query(Utils.DATABASE_TABLE_NAME,new String[]{
+                Utils.KEY_USER_ID,
+                Utils.KEY_USER_NAME,
+                Utils.KEY_USER_CONTACT_NUMBER
+                },Utils.KEY_USER_ID +"=?",new String[]{String.valueOf(id)}
+                ,null,null,null);
+
+        if (cursor!= null)
+            cursor.moveToFirst();
+        Contact contact = new Contact();
+        contact.setId(Integer.parseInt(cursor.getString(0)));
+        contact.setUserName(cursor.getString(1));
+        contact.setUserContactNumber(cursor.getString(2));
+
+        return contact;
+    }
+
 
 
 }
