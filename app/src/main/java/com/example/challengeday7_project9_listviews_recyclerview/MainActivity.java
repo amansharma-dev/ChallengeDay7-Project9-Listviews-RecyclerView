@@ -21,11 +21,16 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
 
         //add contacts
-        databaseHandler.addContact(new Contact("James","001"));
-        databaseHandler.addContact(new Contact("Snoop","002"));
-        databaseHandler.addContact(new Contact("Nico","003"));
-        databaseHandler.addContact(new Contact("Will","004"));
-        databaseHandler.addContact(new Contact("Dave","005"));
+//        databaseHandler.addContact(new Contact("James","001"));
+//        databaseHandler.addContact(new Contact("Snoop","002"));
+//        databaseHandler.addContact(new Contact("Nico","003"));
+//        databaseHandler.addContact(new Contact("Will","004"));
+//        databaseHandler.addContact(new Contact("Dave","005"));
+
+
+        //get single contact
+        Contact singleContact = databaseHandler.getContact(4);
+        Log.d(TAG, "onCreate: Single Contact Details:: "+singleContact.getId()+", NAME:: "+singleContact.getUserName()+", CONTACT NUMBER:: "+singleContact.getUserContactNumber());
 
         //get all contact
         List<Contact> contactList = databaseHandler.getAllContacts();
