@@ -4,13 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.challengeday7_project9_listviews_recyclerview.data.DatabaseHandler;
 import com.example.challengeday7_project9_listviews_recyclerview.model.Contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView listView;
+    private ArrayList<String> contactArrayList;
+    private ArrayAdapter<String> arrayAdapter;
 
     public static final String TAG = "MainActivity";
     @Override
@@ -19,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
+
+        listView = findViewById(R.id.listView);
+
+        contactArrayList = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,contactArrayList);
+
+
 
         //add contacts
 //        databaseHandler.addContact(new Contact("James","001"));
@@ -62,7 +78,18 @@ public class MainActivity extends AppCompatActivity {
         List<Contact> contactList = databaseHandler.getAllContacts();
         for (Contact contact : contactList){
             Log.d(TAG, "onCreate: USER_NAME:: "+contact.getUserName());
+            contactArrayList.add(contact.getUserName());
         }
 
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "onItemClick: "+contactArrayList.get(i));
+            }
+        });
+
+        listView.setAdapter(arrayAdapter);
     }
 }
