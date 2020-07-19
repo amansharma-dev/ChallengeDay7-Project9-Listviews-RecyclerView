@@ -54,7 +54,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(Utils.KEY_USER_CONTACT_NUMBER,contact.getUserContactNumber());
 
         //insert to row
-
         sqLiteDatabase.insert(Utils.DATABASE_TABLE_NAME,null,contentValues);
 
         //close db
