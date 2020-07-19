@@ -27,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
 //        databaseHandler.addContact(new Contact("Will","004"));
 //        databaseHandler.addContact(new Contact("Dave","005"));
 
+//        databaseHandler.addContact(new Contact("Mike","006"));
+//        databaseHandler.addContact(new Contact("Chris","007"));
+//        databaseHandler.addContact(new Contact("Lissa","008"));
+//        databaseHandler.addContact(new Contact("Trish","009"));
+//        databaseHandler.addContact(new Contact("Rey","0010"));
+//
+//        databaseHandler.addContact(new Contact("Willams","0011"));
+//        databaseHandler.addContact(new Contact("Tonny","0012"));
+//        databaseHandler.addContact(new Contact("Garry","0013"));
+//        databaseHandler.addContact(new Contact("Manav","0014"));
+//        databaseHandler.addContact(new Contact("TimGrover","0015"));
+
 
         //get contact
 //        Contact singleContact = databaseHandler.getContact(5);
