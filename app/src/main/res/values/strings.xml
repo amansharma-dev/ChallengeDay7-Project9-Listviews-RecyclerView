@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ChallengeDay7-Project9-Listviews-RecyclerView</string>
     <string name="drop_table">\"DROP TABLE IF EXISTS \"</string>
+    <string name="send">Send</string>
 </resources>

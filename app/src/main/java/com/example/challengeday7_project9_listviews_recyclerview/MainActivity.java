@@ -1,6 +1,8 @@
 package com.example.challengeday7_project9_listviews_recyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.challengeday7_project9_listviews_recyclerview.adapter.RecyclerViewAdapter;
 import com.example.challengeday7_project9_listviews_recyclerview.data.DatabaseHandler;
 import com.example.challengeday7_project9_listviews_recyclerview.model.Contact;
 
@@ -17,8 +20,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private ArrayList<String> contactArrayList;
+//    private ListView listView;
+
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
+    private ArrayList<Contact> contactArrayList;
     private ArrayAdapter<String> arrayAdapter;
 
     public static final String TAG = "MainActivity";
@@ -27,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         DatabaseHandler databaseHandler = new DatabaseHandler(MainActivity.this);
 
-        listView = findViewById(R.id.listView);
+//        listView = findViewById(R.id.listView);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
 
         contactArrayList = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,contactArrayList);
+//        arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,contactArrayList);
 
 
 
@@ -78,18 +87,27 @@ public class MainActivity extends AppCompatActivity {
         List<Contact> contactList = databaseHandler.getAllContacts();
         for (Contact contact : contactList){
             Log.d(TAG, "onCreate: USER_NAME:: "+contact.getUserName());
-            contactArrayList.add(contact.getUserName());
+//            contactArrayList.add(contact.getUserName());
+            contactArrayList.add(contact);
         }
 
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, "onItemClick: "+contactArrayList.get(i));
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.d(TAG, "onItemClick: "+contactArrayList.get(i));
+//            }
+//        });
+//
+//        listView.setAdapter(arrayAdapter);
 
-        listView.setAdapter(arrayAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //setup adapter
+
+        recyclerViewAdapter  = new RecyclerViewAdapter(this,contactArrayList);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
     }
 }
